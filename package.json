@@ -1,0 +1,38 @@
+{
+  "name": "@your-scope/d2r-save-reader",
+  "version": "0.1.0",
+  "description": "Parse Diablo II Resurrected .d2s and shared stash data from Buffer or base64",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/esm/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.build.cjs.json",
+    "clean": "rimraf dist",
+    "lint": "eslint . --ext .ts,.tsx",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.4.5"
+  }
+}

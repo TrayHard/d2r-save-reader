@@ -1,0 +1,13 @@
+src
+scripts
+node_modules
+*.log
+.DS_Store
+.vscode
+.idea
+coverage
+*.tsbuildinfo
+*.map
+**/*.test.*
+__tests__
+
