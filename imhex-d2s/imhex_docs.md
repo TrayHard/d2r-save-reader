@@ -1,3 +1,12 @@
+# Pattern Language
+
+A custom C++ and Rust inspired scripting language for analyzing binary data.
+
+The Pattern Language is a C++ and Rust inspired DSL that was developed for the
+ImHex Hex Editor to easily define and decode binary structures found in files or memory.
+
+If you want to contribute towards improving this documentation, the source documents are available at https://github.com/WerWolv/Documentation under pattern_language.
+
 # Data type
 
 Types are the fundamental entity defining how a certain region of memory should be interpreted, formatted and displayed.
