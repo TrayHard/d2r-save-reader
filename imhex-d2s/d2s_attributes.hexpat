@@ -3,7 +3,7 @@ import std.mem;
 import std.io;
 import std.core;
 
-const u32 ATTR_START = 0x2FC;
+const u32 ATTR_START = 0x2FD;
 
 // ===== Карта длины значений (в битах) по ID =====
 const u16 ATTR_BITS[16] = {
@@ -116,3 +116,4 @@ fn parse_attributes(u32 base, u32 bitStart) {
 // ===== Маркер секции и запуск парсера =====
 u8 attributes_marker @ ATTR_START;
 parse_attributes(ATTR_START, 0);
+std::print("{} {} {} {} {} {} {}", Stats.strength, Stats.energy, Stats.dexterity, Stats.vitality, Stats.unused_stats, Stats.unused_skills, Stats.hp);
