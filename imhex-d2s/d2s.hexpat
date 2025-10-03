@@ -5,13 +5,11 @@
 #pragma magic [55 AA 55 AA] @ 0x00   // сигнатура D2S в начале файла
 #pragma magic [10 1E] @ 0x29        // unknown offset
 
-// Класс персонажа (enum — как в доке: enum Name : uXX { ... })
 enum D2Class: u8 {
   Amazon=0, Sorceress=1, Necromancer=2, Paladin=3,
   Barbarian=4, Druid=5, Assassin=6
 };
 
-// Статусные биты — правильный синтаксис bitfield без базового типа в объявлении
 bitfield D2StatusFlags {
   isNewbie:         1;  // 0x01
   isError:          1;  // 0x02
@@ -22,6 +20,17 @@ bitfield D2StatusFlags {
   IsLadder:         1;  // 0x40
   IsNeedsRenaming:  1;  // 0x80
 };
+
+/*
+struct D2Attributes {
+  strength: 10;
+  energy: 10;
+  dexterity: 10;
+  vitality: 10;
+  unusedStats: 10;
+  unusedSkills: 8; 
+}
+*/
 
 bitfield D2Waypoints {
   // Act 1
@@ -120,6 +129,10 @@ u8            quest_hell[96]        @ 0x219;
 D2Waypoints   waypoints_normal      @ 0x283;  // ПРОВЕРЕНО
 D2Waypoints   waypoints_nightmare   @ 0x29B;  // ПРОВЕРЕНО
 D2Waypoints   waypoints_hell        @ 0x2B3;  // ПРОВЕРЕНО
+
+u16           items_count           @ 0x357;  // ПРОВЕРЕНО
+D2Attributes  attributes            @ 0x2FC;  // ПРОВЕРЕНО
+
 //  0x00BF PreviewData
 //  0x014F Quests
 //  0x0279 Waypoints

@@ -274,12 +274,14 @@ TODO (9-bit encoding)
 
 ### Items
 
+Offset: Starts on 0x355
+
 Items are stored in lists described by this header:
 
-| Byte | Size | Desc       |
-| ---- | ---- | ---------- |
-| 0    | 2    | "JM"       |
-| 2    | 2    | Item Count |
+| Byte  | Size | Desc        |
+| ----- | ---- | ----------- |
+| 0x355 | 2    | "JM" header |
+| 0x357 | 2    | Item Count  |
 
 After this come N items. Each item starts with a basic 14-byte
 structure. Many fields in this structure are not "byte-aligned"
