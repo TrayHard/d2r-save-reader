@@ -23,6 +23,59 @@ bitfield D2StatusFlags {
   IsNeedsRenaming:  1;  // 0x80
 };
 
+bitfield D2Waypoints {
+  // Act 1
+  RogueEncampment:      1;
+  ColdPlains:           1;
+  StonyField:           1;
+  DarkWood:             1;
+  BlackMarsh:           1;
+  OuterCloister:        1;
+  Jail1:                1;
+  InnerCloister:        1;
+  Catacombs2:           1;
+  // Act 2
+  LutGholein:           1;
+  Sewers2:              1;
+  DryHills:             1;
+  HallsOfTheDead2:      1;
+  FarOasis:             1;
+  LostCity:             1;
+  PalaceCellar1:        1;
+  ArcaneSanctuary:      1;
+  CanyonOfTheMagi:      1;
+  // Act 3
+  KurastDocks:          1;
+  SpiderForest:         1;
+  GreatMarsh:           1;
+  FlayerJungle:         1;
+  LowerKurast:          1;
+  KurastBazaar:         1;
+  UppeKurast:           1;
+  Travincal:            1;
+  DuranceOfHate2:       1;
+  // Act 4
+  PandemoniumFortress:  1;
+  CityOfTheDamned:      1;
+  RiverOfFlame:         1;
+  // Act 5
+  Harrogath:            1;
+  FrigidHighlands:      1;
+  ArreatPlateau:        1;
+  CrystallinePassage:   1;
+  GlacialTrail:         1;
+  HallsOfPain:          1;
+  FrozenTundra:         1;
+  TheAncientsWay:       1;
+  WorldstoneKeep2:      1;
+};
+
+bitfield D2Act2Waypoints {
+};
+
+bitfield D2Act3Waypoints {
+};
+
 // ---- D2R v99 ----
 u32 signature   @ 0x00;   // ВСЕГДА 0xAA55AA55
 u32 version     @ 0x04;   // D2R: 0x00000063 (v99)
@@ -60,7 +113,13 @@ u16           merc_name_id          @ 0xB7;     // ?
 u16           merc_type             @ 0xB9;     // ?
 u32           merc_experience       @ 0xBB;     // ПРОВЕРЕНО
 
+u8            quest_normal[96]      @ 0x159;
+u8            quest_nightmare[96]   @ 0x1b9;
+u8            quest_hell[96]        @ 0x219;
 
+D2Waypoints   waypoints_normal      @ 0x283;  // ПРОВЕРЕНО
+D2Waypoints   waypoints_nightmare   @ 0x29B;  // ПРОВЕРЕНО
+D2Waypoints   waypoints_hell        @ 0x2B3;  // ПРОВЕРЕНО
 //  0x00BF PreviewData
 //  0x014F Quests
 //  0x0279 Waypoints
