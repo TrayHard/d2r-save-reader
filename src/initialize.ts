@@ -1,8 +1,4 @@
-import TsvReader from "./read-utils/tsvreader";
 import { ArmorTsvRow, GemsTsvRow, ItemStatCostTsvRow, ItemTypesTsvRow, MagicAffixTsvRow, MiscTsvRow, PropertiesTsvRow, RareAffixTsvRow, RunesTsvRow, SetItemsTsvRow, TsvReaderResult, UniqueTsvRow, WeaponTsvRow } from "./types";
-
-const tsvReader = new TsvReader();
-
 // const rareprefix = tsvReader.readFileSync("global/excel/rareprefix.txt");
 // const magicprefix = tsvReader.readFileSync("global/excel/magicprefix.txt");
 // const magicsuffix = tsvReader.readFileSync("global/excel/magicsuffix.txt");
@@ -28,33 +24,53 @@ type Constants = {
   weapon: TsvReaderResult<WeaponTsvRow>;
 };
 
-function initializeReader(constants: unknown) {
-  // check if constants is an object
-  if (typeof constants !== "object" || constants === null) {
-    throw new Error("Constants must be an object");
-  }
+type UnknownRecord = Record<string, unknown>;
 
-  // check if constants has the required properties
-  if (typeof constants.rareprefix !== "object" || constants.rareprefix === null) {
-    throw new Error("Constants must have a rareprefix property");
-  }
-  if (typeof constants.magicprefix !== "object" || constants.magicprefix === null) {
-    throw new Error("Constants must have a magicprefix property");
-  }
-  if (typeof constants.magicsuffix !== "object" || constants.magicsuffix === null) {
-    throw new Error("Constants must have a magicsuffix property");
-  }
-  if (typeof constants.properties !== "object" || constants.properties === null) {
-    throw new Error("Constants must have a properties property");
-  }
-  if (typeof constants.itemstatcost !== "object" || constants.itemstatcost === null) {
-    throw new Error("Constants must have a itemstatcost property");
-  }
-  if (typeof constants.runes !== "object" || constants.runes === null) {
-    throw new Error("Constants must have a runes property");
-  }
-  if (typeof constants.setitems !== "object" || constants.setitems === null) {
-    throw new Error("Constants must have a setitems property");
+function isObject(value: unknown): value is UnknownRecord {
+  return typeof value === "object" && value !== null;
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((v) => typeof v === "string");
+}
+
+function isRecordOfStringValues(value: unknown): value is Record<string, string> {
+  if (!isObject(value)) return false;
+  return Object.values(value).every((v) => typeof v === "string");
+}
+
+function isTsvReaderResult(value: unknown): value is TsvReaderResult<Record<string, string>> {
+  if (!isObject(value)) return false;
+  const record = value as UnknownRecord;
+  const headers = record.headers;
+  const rows = record.rows;
+  return isStringArray(headers) && Array.isArray(rows) && rows.every((row) => isRecordOfStringValues(row));
+}
+
+export function isConstants(value: unknown): value is Constants {
+  if (!isObject(value)) return false;
+  const v = value as UnknownRecord;
+  return (
+    isTsvReaderResult(v.armor) &&
+    isTsvReaderResult(v.gems) &&
+    isTsvReaderResult(v.itemstatcost) &&
+    isTsvReaderResult(v.itemtypes) &&
+    isTsvReaderResult(v.magicprefix) &&
+    isTsvReaderResult(v.magicsuffix) &&
+    isTsvReaderResult(v.misc) &&
+    isTsvReaderResult(v.properties) &&
+    isTsvReaderResult(v.rareprefix) &&
+    isTsvReaderResult(v.raresuffix) &&
+    isTsvReaderResult(v.runes) &&
+    isTsvReaderResult(v.setitems) &&
+    isTsvReaderResult(v.uniqueitems) &&
+    isTsvReaderResult(v.weapon)
+  );
+}
+
+function initializeReader(constants: unknown) {
+  if (!isConstants(constants)) {
+    throw new Error("Constants structure does not match expected shape");
   }
 }
 

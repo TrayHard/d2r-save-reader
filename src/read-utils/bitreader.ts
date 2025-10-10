@@ -3,6 +3,16 @@ export class BitReader {
   public bits: Uint8Array;
   public offset = 0;
 
+  public static fromBuffer(buffer: Buffer): BitReader {
+    const view = new Uint8Array(
+      buffer.buffer,
+      buffer.byteOffset,
+      buffer.byteLength
+    );
+    const copy = view.slice();
+    return new BitReader(copy.buffer);
+  }
+
   constructor(arrBuffer: ArrayBuffer) {
     const typedArray = new Uint8Array(arrBuffer);
     this.bits = new Uint8Array(typedArray.length * 8);
@@ -97,7 +107,7 @@ export class BitReader {
 
   public ReadNullTerminatedString(): string {
     const start = this.offset;
-    while (this.ReadByte()) {}
+    while (this.ReadByte()) { }
     const end = this.offset - 8;
     const buffer = this.SeekBit(start).ReadBytes((end - start) / 8);
     this.SeekBit(end + 8);
