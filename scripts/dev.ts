@@ -2,21 +2,33 @@ import fs from "fs";
 import path from "path";
 import { readSave } from "../src/readUtils";
 
-const inputArg = process.argv[2] || "tests/test.d2s";
-const inputPath = path.isAbsolute(inputArg) ? inputArg : path.resolve(process.cwd(), inputArg);
+const charInputArg = process.argv[2] || "scripts/test.d2s";
+const charInputPath = path.isAbsolute(charInputArg) ? charInputArg : path.resolve(process.cwd(), charInputArg);
 
-if (!fs.existsSync(inputPath)) {
-  console.error(`Input file not found: ${inputPath}`);
+const stashInputArg = process.argv[3] || "scripts/test.d2i";
+const stashInputPath = path.isAbsolute(stashInputArg) ? stashInputArg : path.resolve(process.cwd(), stashInputArg);
+
+if (!fs.existsSync(stashInputPath)) {
+  console.error(`Input file not found: ${stashInputPath}`);
   process.exit(1);
 }
 
-const buffer = fs.readFileSync(inputPath);
+if (!fs.existsSync(charInputPath)) {
+  console.error(`Input file not found: ${charInputPath}`);
+  process.exit(1);
+}
+
+const charBuffer = fs.readFileSync(charInputPath);
+const stashBuffer = fs.readFileSync(stashInputPath);
 
 try {
-  const result = readSave(buffer);
-  console.log("readSave() done");
-  if (result !== undefined) {
-    console.dir(result, { depth: null });
+  const charResult = readSave(charBuffer);
+  const stashResult = readSave(stashBuffer);
+  if (charResult !== undefined) {
+    console.dir(charResult, { depth: null });
+  }
+  if (stashResult !== undefined) {
+    console.dir(stashResult, { depth: null });
   }
 } catch (error) {
   console.error(error instanceof Error ? error.stack || error.message : error);
