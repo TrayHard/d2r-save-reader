@@ -28,17 +28,19 @@ export class BitReader {
     }, 0);
   }
 
-  public ReadBit(): number | undefined {
-    return this.bits[this.offset++];
+  public ReadBit(): number {
+    if (this.offset >= this.bits.length) {
+      throw new Error("Trying to read past the end of the bits");
+    }
+    const bit = this.bits[this.offset]!;
+    this.offset += 1;
+    return bit;
   }
 
   public ReadBitArray(count: number): Uint8Array {
     const bits = new Uint8Array(count);
     for (let i = 0; i < count; i++) {
       const bit = this.ReadBit();
-      if (bit === undefined) {
-        throw new Error("Trying to read past the end of the bits");
-      }
       bits[i] = bit;
     }
     return bits;

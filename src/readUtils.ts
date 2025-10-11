@@ -21,10 +21,12 @@ export function readCharacter(saveReader: SaveReader) {
   const characterClass = saveReader.readCharacterClass();
   const level = saveReader.readLevel();
   const status = saveReader.readStatus();
+  const items = saveReader.readItems();
   console.log('characterName: ', characterName);
   console.log('characterClass: ', characterClass);
   console.log('level: ', level);
   console.log('status: ', status);
+  console.log('items: ', items);
 }
 
 export function readStash(saveReader: SaveReader) {
