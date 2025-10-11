@@ -975,3 +975,253 @@ export type WeaponTsvRow = {
   diablocloneweight: string;
 };
 
+export type TEarAttributes = {
+  class: number;
+  level: number;
+  name: string;
+}
+
+export type TItem = {
+  version: string;
+  identified: boolean;
+  socketed: boolean;
+  new: boolean;
+  is_ear: boolean;
+  starter_item: boolean;
+  simple_item: boolean;
+  ethereal: boolean;
+  personalized: boolean;
+  given_runeword: boolean;
+
+  location_id: number;
+  equipped_id: number;
+  position_x: number;
+  position_y: number;
+  alt_position_id: number;
+
+  ear_attributes: TEarAttributes;
+}
+
+export type TConstantClass = {
+  id: number,
+  n: string,
+  c: string,
+  as: string,
+  ts: string[],
+  co: string,
+  s: {
+    lpl: number,
+    mpl: number,
+    spl: number,
+    lpv: number,
+    spv: number,
+    mpe: number,
+  },
+  a: {
+    str: number,
+    dex: number,
+    int: number,
+    vit: number,
+    stam: number,
+    hpadd: string,
+  }
+}
+
+export type TConstantSkill = {
+  id: number,
+  s: string,
+  n: string,
+  c?: string,
+}
+
+export type TConstantRareName = {
+  id: number,
+  n?: string,
+  tc?: string,
+}
+
+export type TConstantMagicPrefix = {
+  id: number,
+  n?: string,
+  tc?: string,
+}
+
+export type TConstantPropertyNode = {
+  type: string,
+  s?: string,
+  f: number,
+  val?: number,
+}
+
+export type TConstantMagicalProperty = {
+  id: number,
+  s: string,
+  e?: number,
+  cB?: number,
+  cS?: number,
+  sS?: number,
+  sB?: number,
+  sA?: number,
+  sP?: number,
+  so?: number,
+  dF?: number,
+  dV?: number,
+  dP?: string,
+  dN?: string,
+  dg?: number,
+  dgF?: number,
+  dgP?: string,
+  d2?: string,
+  o?: number,
+  op?: number,
+  ob?: string,
+  os?: string[],
+  vS?: number,
+  np?: number,
+  dR?: string,
+  dE?: string,
+}
+
+type TMagicalPropertyOnItem = { prop: string, p?: number, min?: number, max?: number };
+
+export type TConstantRuneword = {
+  id: number,
+  n?: string,
+  types?: string[],
+  r?: string[],
+  m: Array<TMagicalPropertyOnItem>
+}
+
+export type TConstantSetItem = {
+  id: number,
+  n?: string,
+  i?: string,
+  c?: string,
+  tc?: string,
+  lvl?: string,
+  m: Array<TMagicalPropertyOnItem>
+}
+
+export type TConstantUniqueItem = {
+  id: number,
+  n?: string,
+  i?: string,
+  c?: string,
+  tc?: string,
+  lvl?: string,
+  m: Array<TMagicalPropertyOnItem>
+}
+
+// Throwables, keys, bolts, arrows, tomes, etc.
+export type TConstantStackableItem = {
+  n?: string,
+}
+
+export type TConstantArmorItem = {
+  nc: string,
+  exc?: string,
+  elc?: string,
+  iq?: number,
+  n?: string,
+  minac?: number,
+  maxac?: number,
+  durability?: number,
+  mind?: number,
+  maxd?: number,
+  rs?: number,
+  rd?: number,
+  hi?: number,
+  gt?: number,
+  i?: string,
+  ui?: string,
+  si?: string,
+  iw?: number,
+  ih?: number,
+  it?: number,
+  type?: string,
+  lvl?: string,
+  gemsockets?: number,
+  spawnable?: number,
+  nodurability?: number,
+  ig: string[],
+  eq1n?: string,
+  eq2n?: string,
+  c: string[],
+}
+
+export type TConstantWeaponItem = {
+  nc: string,
+  exc?: string,
+  elc?: string,
+  iq?: number,
+  n?: string,
+  s?: number,
+  durability?: number,
+  mind?: number,
+  maxd?: number,
+  minmd?: number,
+  maxmd?: number,
+  min2d?: number,
+  max2d?: number,
+  rs?: number,
+  rd?: number,
+  hi?: number,
+  gt?: number,
+  i?: string,
+  ui?: string,
+  si?: string,
+  iw?: number,
+  ih?: number,
+  it?: number,
+  type?: string,
+  lvl?: string,
+  gemsockets?: number,
+  spawnable?: number,
+  handed1or2?: number,
+  handed2?: number,
+  nodurability?: number,
+  ig?: string[],
+  eq1n?: string,
+  eq2n?: string,
+  c: string[],
+}
+
+export type TConstantMiscItem = {
+  iq: number,
+  n?: string,
+  s?: number,
+  hi?: number,
+  gt?: number,
+  i?: string,
+  ui?: string,
+  iw?: number,
+  ih?: number,
+  it?: number,
+  type?: string,
+  lvl?: string,
+  gemsockets?: number,
+  spawnable?: number,
+  nodurability?: number,
+  ig: string[],
+  eq1n?: string,
+  eq2n?: string,
+  c: string[],
+  m?: Array<Array<TMagicalPropertyOnItem> | null>
+}
+
+export type TConstantData = {
+  classes: Array<TConstantClass>;
+  skills: Array<TConstantSkill>;
+  rare_names: Array<TConstantRareName | null>;
+  magic_prefixes: Array<TConstantMagicPrefix | null>;
+  magic_suffixes: Array<TConstantMagicPrefix | null>;
+  properties: Record<string, Array<TConstantPropertyNode>>;
+  magical_properties: Array<TConstantMagicalProperty>;
+  runewords: Array<TConstantRuneword | null>;
+  set_items: Array<TConstantSetItem>;
+  unq_items: Array<TConstantUniqueItem>;
+  stackables: Record<string, TConstantStackableItem>;
+  armor_items: Record<string, TConstantArmorItem>;
+  weapon_items: Record<string, TConstantWeaponItem>;
+  other_items: Record<string, TConstantMiscItem>;
+}
